@@ -1,69 +1,38 @@
-# React + TypeScript + Vite
+Задача:
+Реализовать приложение с выводом данных полученных по API.
+Пример схематичного интерфейса приложения изображен в app_example.png
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Исходные данные:
+- Запрещено использовать любого рода boilerplates
+- Всю информацию запрашиваем по GET-запросу: https://www.thecocktaildb.com/api/json/v1/1/search.php?s=<cocktail_code>
+- Доступные cocktail_code: margarita, mojito, a1, kir
+- Из эндпоинта используем все коктейли относящиеся к одному виду. Например: эндпоинт возвращает 4 вида mojito, на странице с данным коктейлем выводим все 4 вида
 
-Currently, two official plugins are available:
+Функциональные требования:
+- Использовать менеджер состояния для сохранения данных и исключения дублирующих запросов
+- Учесть обработку ошибок, где это необходимо
+- Список кодов (cocktail_code) использовать для названия пунктов меню и формирования url-страниц
+- Каждый пункт меню ведет на страницу со своим описанием
+- Активный пункт меню должен быть выделен
+- По умолчанию первый пункт меню, является главной страницей и использует его же урл
+- Переход на url-адрес "/", должен отправлять пользователя на url-первого пункта меню
+- При переходе на несуществующую страницу, показать 404 ошибку в произвольной форме
+- Резиновая верстка интерфейса. Максимальная ширина 1024px, минимальная 360px
+- lazy-loading для загрузки изображений
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Нефункциональные требования:
+- Масштабируемая архитектура. Код должен быть структурирован таким образом, чтобы его можно было легко расширять и модифицировать.
+- Quality Gates (не более 5 штук). Приложение должно содержать набор инструментов необходимых для поддержания качества кода.
 
-## Expanding the ESLint configuration
+Требования по стеку на выбор:
+- Typescript + vue 2/3, react + state manager
+- webpack, vite
+- eslint, prettier
+- html 5, css 3
+- scss/sass, stylus, less, postCSS
+- Адаптивная верстка (chrome, safari)
+- unit-testing (опционально)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+По окончанию:
+- выложить в репозиторий
+- развернуть на любом бесплатном хостинге, например Vercel

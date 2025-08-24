@@ -1,0 +1,63 @@
+@use '../../app/styles/vars';
+
+.title {
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item {
+  border: 1px solid yellowgreen;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: vars.$sm) {
+    flex-direction: column-reverse;
+  }
+}
+
+.desc {
+  width: 50%;
+  padding: 5px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media screen and (max-width: vars.$sm) {
+    width: 100%;
+  }
+}
+
+.image {
+  width: 50%;
+
+  img {
+    width: 100%;
+  }
+
+  @media screen and (max-width: vars.$sm) {
+    width: 100%;
+  }
+}
+
+.instruction {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.ingredient {
+  display: flex;
+  margin-bottom: 10px;
+
+  & > p {
+    width: 50%;
+  }
+}
