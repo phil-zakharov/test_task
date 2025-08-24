@@ -6,53 +6,13 @@ import { useGetCocktailsQuery } from '~/entities/cocktails/api';
 import { CocktailCode } from '~/entities/cocktails/types';
 import styles from './Cocktail.module.scss';
 import { useMemo } from 'react';
+import { prepareDrink } from '~/entities/cocktails/utils/prepareDrinks';
 
 export function Cocktail() {
   const params = useParams<{ code: CocktailCode }>();
   const { data } = useGetCocktailsQuery(params.code);
 
-  const drinkInfo = useMemo(() => {
-    const map: Record<
-      string,
-      {
-        instructions: string[];
-        ingredients: [string, string][];
-      }
-    > = {};
-
-    data?.drinks.forEach((drink) => {
-      map[drink.strDrink] = {
-        instructions: [],
-        ingredients: [],
-      };
-
-      Object.entries(drink).forEach(([key, value]) => {
-        if (key.startsWith('strInstructions')) {
-          if (value) {
-            map[drink.strDrink].instructions.push(value as string);
-          }
-        } else if (key.startsWith('strMeasure')) {
-          if (value) {
-            const index = Number(key.replace('strMeasure', ''));
-            if (!map[drink.strDrink].ingredients[index]) {
-              map[drink.strDrink].ingredients[index] = ['', ''];
-            }
-            map[drink.strDrink].ingredients[index][0] = value;
-          }
-        } else if (key.startsWith('strIngredient')) {
-          if (value) {
-            const index = Number(key.replace('strIngredient', ''));
-            if (!map[drink.strDrink].ingredients[index]) {
-              map[drink.strDrink].ingredients[index] = ['', ''];
-            }
-            map[drink.strDrink].ingredients[index][1] = value;
-          }
-        }
-      });
-    });
-
-    return map;
-  }, [data?.drinks]);
+  const drinkInfo = useMemo(() => prepareDrink(data), [data]);
 
   if (!params.code) {
     return <Navigate to="/" />;
